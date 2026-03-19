@@ -1,0 +1,542 @@
+[
+  {
+    "id": 1,
+    "name": "BAGUA",
+    "address": "JR. PIURA N° 175 BAGUA - BAGUA - AMAZONAS",
+    "lat": -5.6378,
+    "lng": -78.5312,
+    "polosKg": 235,
+    "polosUnidades": 470
+  },
+  {
+    "id": 2,
+    "name": "SANTA",
+    "address": "CALLE LAS GAVIOTAS MZ. Z LT. 8 URB. BUENOS AIRES II ETAPA - NUEVO CHIMBOTE - SANTA - ÁNCASH",
+    "lat": -9.1066,
+    "lng": -78.5156,
+    "polosKg": 454,
+    "polosUnidades": 908
+  },
+  {
+    "id": 3,
+    "name": "HUARI",
+    "address": "JR. SAN MARTIN 312 CENT HUARI. DISTRITO DE HUARI, PROVINCIA DE HUARI, ANCASH",
+    "lat": -9.3482,
+    "lng": -77.1722,
+    "polosKg": 224,
+    "polosUnidades": 448
+  },
+  {
+    "id": 4,
+    "name": "ANDAHUAYLAS",
+    "address": "JR. AYACUCHO MZ A LOTE 3 Y JR. AYACUCHO 697 - ANDAHUAYLAS - ANDAHUAYLAS - APURIMAC",
+    "lat": -13.6554,
+    "lng": -73.3874,
+    "polosKg": 176,
+    "polosUnidades": 352
+  },
+  {
+    "id": 5,
+    "name": "AREQUIPA 2",
+    "address": "URB. SANTO DOMINGO 5TA. ESTANCIA B5",
+    "lat": -16.4090,
+    "lng": -71.5375,
+    "polosKg": 526,
+    "polosUnidades": 1052
+  },
+  {
+    "id": 6,
+    "name": "CAYLLOMA",
+    "address": "CALLE VITOR MZ R LOTE 10 A PEDREGAL CENTRO",
+    "lat": -15.5175,
+    "lng": -72.2064,
+    "polosKg": 160,
+    "polosUnidades": 320
+  },
+  {
+    "id": 7,
+    "name": "CANGALLO",
+    "address": "AV 17 DE DICIEMBRE N° 102-104 - CANGALLO - CANGALLO – AYACUCHO",
+    "lat": -13.6333,
+    "lng": -74.1333,
+    "polosKg": 96,
+    "polosUnidades": 192
+  },
+  {
+    "id": 8,
+    "name": "LUCANAS",
+    "address": "JIRON AYACUCHO N° 266 - PUQUIO - LUCANAS – AYACUCHO",
+    "lat": -14.6931,
+    "lng": -74.1254,
+    "polosKg": 104,
+    "polosUnidades": 208
+  },
+  {
+    "id": 9,
+    "name": "CHOTA",
+    "address": "JR. 27 DE NOVIEMBRE 729 - CAJAMARCA - CHOTA – CHOTA",
+    "lat": -6.5573,
+    "lng": -78.6531,
+    "polosKg": 370,
+    "polosUnidades": 740
+  },
+  {
+    "id": 10,
+    "name": "JAEN",
+    "address": "PJE. CHILLÓN NRO 118 - JAEN - JAEN – CAJAMARCA",
+    "lat": -5.7069,
+    "lng": -78.8088,
+    "polosKg": 291,
+    "polosUnidades": 582
+  },
+  {
+    "id": 11,
+    "name": "CANCHIS",
+    "address": "JR ALFONSO UGARTE N° 426",
+    "lat": -14.2747,
+    "lng": -71.2247,
+    "polosKg": 390,
+    "polosUnidades": 780
+  },
+  {
+    "id": 12,
+    "name": "HUAMALIES",
+    "address": "JR. HUANUCO NRO 268 - LLATA - HUAMALIES",
+    "lat": -9.5481,
+    "lng": -76.8267,
+    "polosKg": 122,
+    "polosUnidades": 244
+  },
+  {
+    "id": 13,
+    "name": "LEONCIO PRADO",
+    "address": "JR. CAJAMARCA N°972 TINGO MARIA",
+    "lat": -9.3000,
+    "lng": -76.0000,
+    "polosKg": 172,
+    "polosUnidades": 344
+  },
+  {
+    "id": 14,
+    "name": "CHANCHAMAYO",
+    "address": "JIRON JULIO PIROLA N° 186, URB. CAROLINA",
+    "lat": -11.0551,
+    "lng": -75.3414,
+    "polosKg": 404,
+    "polosUnidades": 808
+  },
+  {
+    "id": 15,
+    "name": "PACASMAYO",
+    "address": "CALLE MANUEL PASTOR RIOS N°643 MZ. 49 LT.5",
+    "lat": -7.4005,
+    "lng": -79.5679,
+    "polosKg": 740,
+    "polosUnidades": 1480
+  },
+  {
+    "id": 16,
+    "name": "SANCHEZ CARRION",
+    "address": "JR. FRANCISCO BOLOGNESI N° 230",
+    "lat": -7.8167,
+    "lng": -78.3000,
+    "polosKg": 235,
+    "polosUnidades": 470
+  },
+  {
+    "id": 17,
+    "name": "LAMBAYEQUE",
+    "address": "CALLE BOLIVAR N° 447 - LAMBAYEQUE",
+    "lat": -6.7011,
+    "lng": -79.9064,
+    "polosKg": 586,
+    "polosUnidades": 1172
+  },
+  {
+    "id": 18,
+    "name": "LIMA NORTE 1",
+    "address": "CALLE FEDERICO WENZARA LINECK 1048 - URB. PALAO - SAN MARTIN DE PORRES – LIMA",
+    "lat": -12.0166,
+    "lng": -77.0600,
+    "polosKg": 622,
+    "polosUnidades": 1244
+  },
+  {
+    "id": 19,
+    "name": "LIMA NORTE 2",
+    "address": "AV. UNIVERSITARIA 5933 - URB. LA VEGAS MZ. D LTE 14 – COMAS",
+    "lat": -11.9458,
+    "lng": -77.0573,
+    "polosKg": 552,
+    "polosUnidades": 1104
+  },
+  {
+    "id": 20,
+    "name": "LIMA NORTE 3",
+    "address": "CALLE MANUEL DUATO MZ. A LOTE 14 URB. PARCELA MULERIA NORTE - LOS OLIVOS – LIMA",
+    "lat": -11.9625,
+    "lng": -77.0748,
+    "polosKg": 772,
+    "polosUnidades": 1544
+  },
+  {
+    "id": 21,
+    "name": "LIMA OESTE 3",
+    "address": "JR. MORRO SOLAR N° 1352 - URB. LAS GARDENIAS SANTIAGO DE SURCO",
+    "lat": -12.1364,
+    "lng": -76.9906,
+    "polosKg": 723,
+    "polosUnidades": 1446
+  },
+  {
+    "id": 22,
+    "name": "LIMA SUR 1",
+    "address": "JR. JUAN MENDIZABAL N° 479-481, URB. SAN JUAN UNIDAD B - SAN JUAN DE MIRAFLORES",
+    "lat": -12.1571,
+    "lng": -76.9714,
+    "polosKg": 494,
+    "polosUnidades": 988
+  },
+  {
+    "id": 23,
+    "name": "LIMA SUR 2",
+    "address": "PUEBLO JOVEN URBANIZACIÓN JARDÍN AV. PACHACÚTEC N° 2430 (MZ 'S' LOTE 3) ZONA SEGUNDA Y TERCERA, VILLA MARÍA DEL TRIUNFO",
+    "lat": -12.1654,
+    "lng": -76.9416,
+    "polosKg": 618,
+    "polosUnidades": 1236
+  },
+  {
+    "id": 24,
+    "name": "LIMA ESTE 1",
+    "address": "JR. LAS RETAMAS N° 368 - URB. LOS RECAUDADORES - ATE - LIMA",
+    "lat": -12.0298,
+    "lng": -76.9185,
+    "polosKg": 771,
+    "polosUnidades": 1542
+  },
+  {
+    "id": 25,
+    "name": "LIMA ESTE 2",
+    "address": "AV. GRAN CHIMU N° 765 URB. ZARATE SAN JUAN DE LURIGANCHO",
+    "lat": -12.0167,
+    "lng": -76.9989,
+    "polosKg": 863,
+    "polosUnidades": 1726
+  },
+  {
+    "id": 26,
+    "name": "CAÑETE",
+    "address": "FRANCISCO REYNOSO MZ A LOTE 9 URB. CASUARINAS - SAN VICENTE DE CAÑETE - CAÑETE – LIMA",
+    "lat": -13.0825,
+    "lng": -76.3208,
+    "polosKg": 228,
+    "polosUnidades": 456
+  },
+  {
+    "id": 27,
+    "name": "HUAROCHIRÍ",
+    "address": "CARRETERA CENTRAL KM 38,7 DE LA URB. SANTA ANA BAJA DISTRITO DE RICARDO PALMA - PROVINCIA DE HUAROCHIRI – LIMA",
+    "lat": -11.9189,
+    "lng": -76.6614,
+    "polosKg": 102,
+    "polosUnidades": 204
+  },
+  {
+    "id": 28,
+    "name": "ALTO AMAZONAS",
+    "address": "CALLE 28 DE JULIO N°336 AA.HH LA BOCA-AEROPUERTO II ETAPA - YURIMAGUAS",
+    "lat": -5.8937,
+    "lng": -76.1067,
+    "polosKg": 178,
+    "polosUnidades": 356
+  },
+  {
+    "id": 29,
+    "name": "PIURA 1",
+    "address": "AV LOS COCOS N° 924 URB. CLUB GRAU PIURA",
+    "lat": -5.1783,
+    "lng": -80.6549,
+    "polosKg": 467,
+    "polosUnidades": 934
+  },
+  {
+    "id": 30,
+    "name": "SULLANA",
+    "address": "AV. SANTA ROSA Nº 221 - SULLANA PIURA",
+    "lat": -4.9036,
+    "lng": -80.6853,
+    "polosKg": 445,
+    "polosUnidades": 890
+  },
+  {
+    "id": 31,
+    "name": "SAN ROMÁN",
+    "address": "JR. SANTIAGO MAMANI 244 - URB. LA RINCONADA – JULIACA",
+    "lat": -15.5000,
+    "lng": -70.1333,
+    "polosKg": 626,
+    "polosUnidades": 1252
+  },
+  {
+    "id": 32,
+    "name": "CHACHAPOYAS",
+    "address": "JR AYACUCHO 341 BARRIO LA LAGUNA",
+    "lat": -6.2316,
+    "lng": -77.8689,
+    "polosKg": 164,
+    "polosUnidades": 328
+  },
+  {
+    "id": 33,
+    "name": "HUARAZ",
+    "address": "JR AUGUSTO INFANTE N° 839",
+    "lat": -9.5270,
+    "lng": -77.5278,
+    "polosKg": 358,
+    "polosUnidades": 716
+  },
+  {
+    "id": 34,
+    "name": "ABANCAY",
+    "address": "AV. PRADO ALTO 721, DISTRITO Y PROVINCIA DE ABANCAY",
+    "lat": -13.6339,
+    "lng": -72.8814,
+    "polosKg": 219,
+    "polosUnidades": 438
+  },
+  {
+    "id": 35,
+    "name": "HUAMANGA",
+    "address": "JR MARAVILLAS S/N MZ E LT 07 URB MARIA PARADO DE BELLIDO – HUAMANGA",
+    "lat": -13.1588,
+    "lng": -74.2242,
+    "polosKg": 393,
+    "polosUnidades": 786
+  },
+  {
+    "id": 36,
+    "name": "CALLAO",
+    "address": "AV JUAN PABLO II CIUDAD DEL PESCADOR MZ C 4 LOTE 7 - BELLAVISTA - CALLAO",
+    "lat": -12.0564,
+    "lng": -77.1300,
+    "polosKg": 759,
+    "polosUnidades": 1518
+  },
+  {
+    "id": 37,
+    "name": "CUSCO",
+    "address": "PASAJE HERMOZA NRO 12 - CUSCO - CUSCO - CUSCO",
+    "lat": -13.5183,
+    "lng": -71.9781,
+    "polosKg": 710,
+    "polosUnidades": 1420
+  },
+  {
+    "id": 38,
+    "name": "HUANCAVELICA",
+    "address": "MZ. V1, LOTE 8A, CENTRO POBLADO SAN CRISTÓBAL (CUADRA 1 DE LA AV. MALECÓN VIRGEN DE LA CANDELARIA N° 250) BARRIO DE SAN CRISTÓBAL, HUANCAVELICA",
+    "lat": -12.7864,
+    "lng": -74.9733,
+    "polosKg": 417,
+    "polosUnidades": 834
+  },
+  {
+    "id": 39,
+    "name": "HUANUCO",
+    "address": "JR DAMASO BERAUN 437",
+    "lat": -9.9306,
+    "lng": -76.2422,
+    "polosKg": 419,
+    "polosUnidades": 838
+  },
+  {
+    "id": 40,
+    "name": "ICA",
+    "address": "AV CONDE DE NIEVA N° 1090-1096 (MZ 15 LOTE 6)",
+    "lat": -14.0755,
+    "lng": -75.7342,
+    "polosKg": 662,
+    "polosUnidades": 1324
+  },
+  {
+    "id": 41,
+    "name": "TRUJILLO",
+    "address": "CALLE FERNANDO LA CARRERA 1026 URB. LA MERCED, TRUJILLO (AL COSTADO DEL PARQUE BOTÁNICO)",
+    "lat": -8.1116,
+    "lng": -79.0289,
+    "polosKg": 428,
+    "polosUnidades": 856
+  },
+  {
+    "id": 42,
+    "name": "LIMA OESTE 1",
+    "address": "CALLE SAN LUCAS 171 -175, PUEBLO LIBRE (AL FRENTE DE LA UNIVERSIDAD VILLARREAL)",
+    "lat": -12.0714,
+    "lng": -77.0634,
+    "polosKg": 431,
+    "polosUnidades": 862
+  },
+  {
+    "id": 43,
+    "name": "HUAURA",
+    "address": "JR. JOSÉ T. GARCÍA N° 160 – HUACHO",
+    "lat": -11.1069,
+    "lng": -77.6050,
+    "polosKg": 472,
+    "polosUnidades": 944
+  },
+  {
+    "id": 44,
+    "name": "LIMA OESTE 2",
+    "address": "CALLE LOS HALCONES N°472 – SURQUILLO",
+    "lat": -12.1114,
+    "lng": -77.0119,
+    "polosKg": 540,
+    "polosUnidades": 1080
+  },
+  {
+    "id": 45,
+    "name": "MAYNAS",
+    "address": "CALLE YAVARI 778 – IQUITOS",
+    "lat": -3.7491,
+    "lng": -73.2538,
+    "polosKg": 597,
+    "polosUnidades": 1194
+  },
+  {
+    "id": 46,
+    "name": "TAMBOPATA",
+    "address": "AV GONZALES PRADA 1154",
+    "lat": -12.5934,
+    "lng": -69.1892,
+    "polosKg": 136,
+    "polosUnidades": 272
+  },
+  {
+    "id": 47,
+    "name": "MARISCAL NIETO",
+    "address": "CALLE ILO N° 306 – DISTRITO DE MOQUEGUA, PROVINCIA DE MARISCAL NIETO, Y DEPARTAMENTO DE MOQUEGUA",
+    "lat": -17.1940,
+    "lng": -70.9355,
+    "polosKg": 166,
+    "polosUnidades": 332
+  },
+  {
+    "id": 48,
+    "name": "PASCO",
+    "address": "JR. SAN MARTIN N° 111 - SAN JUAN PAMPA, DISTRITO DE YANACANCHA - PASCO – PASCO",
+    "lat": -10.6831,
+    "lng": -76.2567,
+    "polosKg": 232,
+    "polosUnidades": 464
+  },
+  {
+    "id": 49,
+    "name": "PIURA 2",
+    "address": "CALLE LOS JUNCOS LOTE 10 URB MIRAFLORES - CASTILLA – PIURA",
+    "lat": -5.1945,
+    "lng": -80.6328,
+    "polosKg": 490,
+    "polosUnidades": 980
+  },
+  {
+    "id": 50,
+    "name": "PUNO",
+    "address": "JR AREQUIPA 1173 -1181 - PUNO",
+    "lat": -15.8402,
+    "lng": -70.0219,
+    "polosKg": 333,
+    "polosUnidades": 666
+  },
+  {
+    "id": 51,
+    "name": "TACNA",
+    "address": "LOS NARDOS 172 - URB PESCASSEROLLI - ESQ CON CRNEL VIDAL - TACNA",
+    "lat": -18.0146,
+    "lng": -70.2536,
+    "polosKg": 285,
+    "polosUnidades": 570
+  },
+  {
+    "id": 52,
+    "name": "TUMBES",
+    "address": "MZ N LOTE 20 URBANIZACION JOSE LISHNER TUDELA",
+    "lat": -3.5669,
+    "lng": -80.4515,
+    "polosKg": 166,
+    "polosUnidades": 332
+  },
+  {
+    "id": 53,
+    "name": "CORONEL PORTILLO",
+    "address": "JR SALAVERRY 452 - CORONEL PORTILLO",
+    "lat": -8.3791,
+    "lng": -74.5539,
+    "polosKg": 426,
+    "polosUnidades": 852
+  },
+  {
+    "id": 54,
+    "name": "HUANCAYO",
+    "address": "CALLE NEMESIO RAEZ N° 251 - EL TAMBO – HUANCAYO",
+    "lat": -12.0651,
+    "lng": -75.2049,
+    "polosKg": 607,
+    "polosUnidades": 1214
+  },
+  {
+    "id": 55,
+    "name": "SAN MARTIN",
+    "address": "PARTIDO ALTO - JR. NICOLAS DE PIÉROLA 135 MZ 0 LT 0, DISTRITO DE TARAPOTO",
+    "lat": -6.4874,
+    "lng": -76.3600,
+    "polosKg": 695,
+    "polosUnidades": 1390
+  },
+  {
+    "id": 56,
+    "name": "AREQUIPA 1",
+    "address": "AV. UNIÓN N° 503 MIRAFLORES",
+    "lat": -16.3989,
+    "lng": -71.5369,
+    "polosKg": 463,
+    "polosUnidades": 926
+  },
+  {
+    "id": 57,
+    "name": "CHICLAYO",
+    "address": "CALLE LOS MANZANOS N° 160 URB. SANTA VICTORIA",
+    "lat": -6.7714,
+    "lng": -79.8409,
+    "polosKg": 387,
+    "polosUnidades": 774
+  },
+  {
+    "id": 58,
+    "name": "LIMA CENTRO 1",
+    "address": "JR. LAMPA 946 - CERCADO DE LIMA",
+    "lat": -12.0498,
+    "lng": -77.0359,
+    "polosKg": 469,
+    "polosUnidades": 938
+  },
+  {
+    "id": 59,
+    "name": "CAJAMARCA",
+    "address": "AV. 13 DE JULIO N° 875 - CHONTAPACCHA",
+    "lat": -7.1638,
+    "lng": -78.5003,
+    "polosKg": 596,
+    "polosUnidades": 1192
+  },
+  {
+    "id": 60,
+    "name": "LIMA CENTRO 2",
+    "address": "JR CUSCO Nº 653 - CERCADO DE LIMA",
+    "lat": -12.0553,
+    "lng": -77.0311,
+    "polosKg": 469,
+    "polosUnidades": 938
+  }
+]

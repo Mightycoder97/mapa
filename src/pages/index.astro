@@ -1,0 +1,881 @@
+---
+import Layout from '../layouts/Layout.astro';
+import locations from '../data/locations.json';
+
+const totalPolos = locations.reduce((sum, loc) => sum + loc.polosUnidades, 0);
+const totalKg = locations.reduce((sum, loc) => sum + loc.polosKg, 0);
+const maxPolos = Math.max(...locations.map(l => l.polosUnidades));
+const minPolos = Math.min(...locations.map(l => l.polosUnidades));
+const avgPolos = Math.round(totalPolos / locations.length);
+---
+
+<Layout title="Mapa de Distribución - JNE Perú | Polos y Gorros EG 2026">
+  
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h1>Distribución Nacional de Polos y Gorros</h1>
+        <p class="header-subtitle">Jurado Nacional de Elecciones — EG 2026</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-badge">
+        <span class="badge-dot"></span>
+        <span>{locations.length} Sedes JEE</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="stats-grid">
+        <div class="stat-card stat-total">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+              <line x1="7" y1="7" x2="7.01" y2="7"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{totalPolos.toLocaleString()}</span>
+            <span class="stat-label">Total Unidades</span>
+          </div>
+        </div>
+
+        <div class="stat-card stat-weight">
+          <div class="stat-icon icon-amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="6" width="22" height="12" rx="2"/>
+              <path d="M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{totalKg.toLocaleString()}</span>
+            <span class="stat-label">Peso Total (Kg)</span>
+          </div>
+        </div>
+
+        <div class="stat-card stat-avg">
+          <div class="stat-icon icon-emerald">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{avgPolos}</span>
+            <span class="stat-label">Promedio / Sede</span>
+          </div>
+        </div>
+
+        <div class="stat-card stat-range">
+          <div class="stat-icon icon-rose">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{minPolos} - {maxPolos}</span>
+            <span class="stat-label">Rango (min - max)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend-section">
+        <h3 class="legend-title">Volumen de Entrega</h3>
+        <div class="legend-items">
+          <div class="legend-item">
+            <span class="legend-dot dot-low"></span>
+            <span>Bajo (< 400 uds)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot dot-medium"></span>
+            <span>Medio (400 - 800 uds)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot dot-high"></span>
+            <span>Alto (800 - 1200 uds)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot dot-critical"></span>
+            <span>Máximo (> 1200 uds)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="search-section">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="search-input" placeholder="Buscar sede JEE..." class="search-input" />
+        </div>
+      </div>
+
+      <!-- Location List -->
+      <div class="location-list" id="location-list">
+        {locations.sort((a, b) => b.polosUnidades - a.polosUnidades).map((loc) => (
+          <button class="location-item" data-id={loc.id} data-lat={loc.lat} data-lng={loc.lng}>
+            <div class="location-rank">#{locations.sort((a, b) => b.polosUnidades - a.polosUnidades).indexOf(loc) + 1}</div>
+            <div class="location-info">
+              <span class="location-name">{loc.name}</span>
+              <span class="location-units">{loc.polosUnidades.toLocaleString()} uds · {loc.polosKg} kg</span>
+            </div>
+            <div class={`location-indicator ${loc.polosUnidades > 1200 ? 'indicator-critical' : loc.polosUnidades > 800 ? 'indicator-high' : loc.polosUnidades > 400 ? 'indicator-medium' : 'indicator-low'}`}></div>
+          </button>
+        ))}
+      </div>
+    </aside>
+
+    <!-- Map -->
+    <div class="map-container">
+      <div id="map" class="map"></div>
+    </div>
+  </main>
+
+  <!-- Google Maps Script -->
+  <script is:inline define:vars={{ locations, GOOGLE_MAPS_KEY: 'AIzaSyA5BSUAso_yWVNijpWB1NbHhhX5n4HIwsU' }}>
+
+    function getMarkerColor(units) {
+      if (units > 1200) return '#f43f5e'; // critical - rose
+      if (units > 800) return '#f59e0b';  // high - amber
+      if (units > 400) return '#3b82f6';  // medium - blue
+      return '#10b981';                    // low - emerald
+    }
+
+    function getMarkerScale(units) {
+      const minScale = 8;
+      const maxScale = 16;
+      const minUnits = 192;
+      const maxUnits = 1726;
+      return minScale + ((units - minUnits) / (maxUnits - minUnits)) * (maxScale - minScale);
+    }
+
+    function initMap() {
+      const peruCenter = { lat: -9.19, lng: -75.0152 };
+      
+      const mapStyles = [
+        { elementType: "geometry", stylers: [{ color: "#0a0e1a" }] },
+        { elementType: "labels.text.stroke", stylers: [{ color: "#0a0e1a" }] },
+        { elementType: "labels.text.fill", stylers: [{ color: "#64748b" }] },
+        {
+          featureType: "administrative.country",
+          elementType: "geometry.stroke",
+          stylers: [{ color: "#3b82f6" }, { weight: 1.5 }]
+        },
+        {
+          featureType: "administrative.province",
+          elementType: "geometry.stroke",
+          stylers: [{ color: "#1e3a5f" }, { weight: 0.5 }]
+        },
+        {
+          featureType: "administrative.locality",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#94a3b8" }]
+        },
+        {
+          featureType: "landscape",
+          elementType: "geometry",
+          stylers: [{ color: "#111827" }]
+        },
+        {
+          featureType: "poi",
+          elementType: "geometry",
+          stylers: [{ color: "#141c2e" }]
+        },
+        { featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }] },
+        {
+          featureType: "road",
+          elementType: "geometry",
+          stylers: [{ color: "#1a2035" }]
+        },
+        {
+          featureType: "road",
+          elementType: "labels",
+          stylers: [{ visibility: "off" }]
+        },
+        {
+          featureType: "transit",
+          stylers: [{ visibility: "off" }]
+        },
+        {
+          featureType: "water",
+          elementType: "geometry",
+          stylers: [{ color: "#06101f" }]
+        },
+        {
+          featureType: "water",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#1e3a5f" }]
+        }
+      ];
+
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 6,
+        center: peruCenter,
+        styles: mapStyles,
+        disableDefaultUI: true,
+        zoomControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_CENTER
+        },
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: true,
+        fullscreenControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_TOP
+        },
+        gestureHandling: "greedy",
+        minZoom: 5,
+        maxZoom: 18,
+        backgroundColor: "#0a0e1a"
+      });
+
+      const markers = [];
+      let activeInfoWindow = null;
+
+      locations.forEach((loc) => {
+        const color = getMarkerColor(loc.polosUnidades);
+        const scale = getMarkerScale(loc.polosUnidades);
+
+        const marker = new google.maps.Marker({
+          position: { lat: loc.lat, lng: loc.lng },
+          map: map,
+          title: loc.name,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: color,
+            fillOpacity: 0.85,
+            strokeColor: '#ffffff',
+            strokeWeight: 2,
+            scale: scale
+          },
+          animation: google.maps.Animation.DROP,
+          optimized: false
+        });
+
+        const levelText = loc.polosUnidades > 1200 ? 'MÁXIMO' : loc.polosUnidades > 800 ? 'ALTO' : loc.polosUnidades > 400 ? 'MEDIO' : 'BAJO';
+        const levelClass = loc.polosUnidades > 1200 ? 'level-critical' : loc.polosUnidades > 800 ? 'level-high' : loc.polosUnidades > 400 ? 'level-medium' : 'level-low';
+
+        const infoContent = `
+          <div class="info-window">
+            <div class="info-header">
+              <span class="info-badge ${levelClass}">${levelText}</span>
+              <span class="info-id">#${loc.id}</span>
+            </div>
+            <h3 class="info-title">JEE ${loc.name}</h3>
+            <div class="info-stats">
+              <div class="info-stat">
+                <span class="info-stat-value">${loc.polosUnidades.toLocaleString()}</span>
+                <span class="info-stat-label">Polos + Gorros</span>
+              </div>
+              <div class="info-stat">
+                <span class="info-stat-value">${loc.polosKg} kg</span>
+                <span class="info-stat-label">Peso Total</span>
+              </div>
+            </div>
+            <div class="info-address">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>${loc.address}</span>
+            </div>
+          </div>
+        `;
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: infoContent,
+          maxWidth: 340
+        });
+
+        marker.addListener("click", () => {
+          if (activeInfoWindow) activeInfoWindow.close();
+          infoWindow.open(map, marker);
+          activeInfoWindow = infoWindow;
+          map.panTo(marker.getPosition());
+          map.setZoom(Math.max(map.getZoom(), 10));
+          
+          // Pulse animation
+          marker.setIcon({
+            ...marker.getIcon(),
+            scale: scale * 1.4,
+            strokeWeight: 3
+          });
+          setTimeout(() => {
+            marker.setIcon({
+              ...marker.getIcon(),
+              scale: scale,
+              strokeWeight: 2
+            });
+          }, 300);
+        });
+
+        marker.addListener("mouseover", () => {
+          marker.setIcon({
+            ...marker.getIcon(),
+            fillOpacity: 1,
+            scale: scale * 1.2,
+            strokeWeight: 3
+          });
+        });
+
+        marker.addListener("mouseout", () => {
+          marker.setIcon({
+            ...marker.getIcon(),
+            fillOpacity: 0.85,
+            scale: scale,
+            strokeWeight: 2
+          });
+        });
+
+        markers.push({ marker, data: loc, infoWindow });
+      });
+
+      // Location list click handlers
+      document.querySelectorAll('.location-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const id = parseInt(item.dataset.id);
+          const markerData = markers.find(m => m.data.id === id);
+          if (markerData) {
+            if (activeInfoWindow) activeInfoWindow.close();
+            markerData.infoWindow.open(map, markerData.marker);
+            activeInfoWindow = markerData.infoWindow;
+            map.panTo(markerData.marker.getPosition());
+            map.setZoom(12);
+          }
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById('search-input');
+      const locationItems = document.querySelectorAll('.location-item');
+
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        locationItems.forEach(item => {
+          const name = item.querySelector('.location-name').textContent.toLowerCase();
+          item.style.display = name.includes(query) ? 'flex' : 'none';
+        });
+      });
+    }
+
+    // Load Google Maps
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_KEY}&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    window.initMap = initMap;
+    document.head.appendChild(script);
+  </script>
+
+</Layout>
+
+<style>
+  /* ===== HEADER ===== */
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    height: 60px;
+    z-index: 100;
+    position: relative;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .logo-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .header-text h1 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+
+  .header-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .header-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  /* ===== MAIN LAYOUT ===== */
+  .app-main {
+    display: flex;
+    height: calc(100vh - 60px);
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 360px;
+    min-width: 360px;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    transition: all 0.2s ease;
+  }
+
+  .stat-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(59, 130, 246, 0.15);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-blue);
+    flex-shrink: 0;
+  }
+
+  .stat-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+  .icon-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+  .icon-rose { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+
+  .stat-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .stat-value {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+
+  /* ===== LEGEND ===== */
+  .legend-section {
+    padding: 0 16px 12px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .legend-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+
+  .legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-low { background: var(--accent-emerald); }
+  .dot-medium { background: var(--accent-blue); }
+  .dot-high { background: var(--accent-amber); }
+  .dot-critical { background: var(--accent-rose); }
+
+  /* ===== SEARCH ===== */
+  .search-section {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 10px 12px 10px 38px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .search-input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  /* ===== LOCATION LIST ===== */
+  .location-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 8px;
+  }
+
+  .location-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
+  }
+
+  .location-item:hover {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+  }
+
+  .location-item:active {
+    transform: scale(0.98);
+  }
+
+  .location-rank {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .location-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .location-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .location-units {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  .location-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .indicator-low { background: var(--accent-emerald); }
+  .indicator-medium { background: var(--accent-blue); }
+  .indicator-high { background: var(--accent-amber); }
+  .indicator-critical { background: var(--accent-rose); }
+
+  /* ===== MAP ===== */
+  .map-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ===== INFOWINDOW CUSTOM STYLES ===== */
+  :global(.gm-style .gm-style-iw-c) {
+    background: #1a2035 !important;
+    border: 1px solid rgba(148, 163, 184, 0.15) !important;
+    border-radius: 14px !important;
+    padding: 0 !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+    max-width: 340px !important;
+  }
+
+  :global(.gm-style .gm-style-iw-d) {
+    overflow: auto !important;
+    padding: 0 !important;
+  }
+
+  :global(.gm-style .gm-style-iw-tc::after) {
+    background: #1a2035 !important;
+  }
+
+  :global(.gm-style .gm-ui-hover-effect) {
+    top: 4px !important;
+    right: 4px !important;
+    opacity: 0.6;
+  }
+
+  :global(.gm-style .gm-ui-hover-effect > span) {
+    background-color: white !important;
+  }
+
+  :global(.info-window) {
+    padding: 18px;
+    font-family: 'Inter', sans-serif;
+    color: #f0f4ff;
+    min-width: 260px;
+  }
+
+  :global(.info-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  :global(.info-badge) {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  :global(.level-low) { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+  :global(.level-medium) { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+  :global(.level-high) { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+  :global(.level-critical) { background: rgba(244, 63, 94, 0.2); color: #f43f5e; }
+
+  :global(.info-id) {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+  }
+
+  :global(.info-title) {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+    color: #f0f4ff;
+  }
+
+  :global(.info-stats) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  :global(.info-stat) {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+
+  :global(.info-stat-value) {
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+
+  :global(.info-stat-label) {
+    display: block;
+    font-size: 10px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+
+  :global(.info-address) {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 11px;
+    color: #94a3b8;
+    line-height: 1.5;
+    padding-top: 12px;
+    border-top: 1px solid rgba(148, 163, 184, 0.1);
+  }
+
+  :global(.info-address svg) {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #3b82f6;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .app-main {
+      flex-direction: column;
+    }
+
+    .sidebar {
+      width: 100%;
+      min-width: unset;
+      max-height: 40vh;
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .header-text h1 {
+      font-size: 13px;
+    }
+  }
+</style>
