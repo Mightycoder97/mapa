@@ -115,6 +115,9 @@ const avgPolos = Math.round(totalPolos / locations.length);
         </div>
       </div>
 
+      <!-- Groups Panel -->
+      <div id="groups-panel" class="groups-panel"></div>
+
       <!-- Search -->
       <div class="search-section">
         <div class="search-input-wrapper">
@@ -245,7 +248,9 @@ const avgPolos = Math.round(totalPolos / locations.length);
         backgroundColor: "#0a0e1a"
       });
 
+      window._mapRef = map;
       const markers = [];
+      window._markersRef = markers;
       let activeInfoWindow = null;
 
       locations.forEach((loc) => {
@@ -381,6 +386,23 @@ const avgPolos = Math.round(totalPolos / locations.length);
     script.defer = true;
     window.initMap = initMap;
     document.head.appendChild(script);
+
+    // Load groups module
+    const gScript = document.createElement('script');
+    gScript.src = '/groups.js';
+    document.head.appendChild(gScript);
+
+    // Original initMap patched to init GroupManager
+    const _origInit = initMap;
+    window.initMap = function() {
+      _origInit();
+      // Wait a tick for markers array
+      setTimeout(() => {
+        if (window.GroupManager && window._mapRef && window._markersRef) {
+          window._groupManager = new window.GroupManager(window._mapRef, window._markersRef, locations);
+        }
+      }, 500);
+    };
   </script>
 
 </Layout>
@@ -852,6 +874,367 @@ const avgPolos = Math.round(totalPolos / locations.length);
     flex-shrink: 0;
     margin-top: 2px;
     color: #3b82f6;
+  }
+
+  /* ===== GROUPS PANEL ===== */
+  .groups-panel {
+    border-bottom: 1px solid var(--border-color);
+    max-height: 40vh;
+    overflow-y: auto;
+    background: linear-gradient(to bottom, rgba(10, 14, 26, 0.3), transparent);
+  }
+
+  /* Header */
+  :global(.gp-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px;
+  }
+  :global(.gp-header-left) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  :global(.gp-icon) {
+    width: 24px;
+    height: 24px;
+    background: var(--gradient-primary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  :global(.gp-title) {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  :global(.gp-count-badge) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  :global(.gp-count-dot) {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+  }
+  :global(.gp-count) {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+
+  /* Create Input */
+  :global(.gp-create) {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px 16px;
+  }
+  :global(.gp-input-wrapper) {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  :global(.gp-input-icon) {
+    position: absolute;
+    left: 12px;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  :global(.gp-input) {
+    width: 100%;
+    padding: 10px 12px 10px 36px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  :global(.gp-input:focus) {
+    border-color: var(--accent-blue);
+    background: #0d1323;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+  :global(.gp-input::placeholder) {
+    color: var(--text-muted);
+  }
+  :global(.gp-create-btn) {
+    padding: 0 16px;
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+  }
+  :global(.gp-create-btn:hover) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+  }
+  :global(.gp-create-btn:active) {
+    transform: translateY(0);
+  }
+
+  /* Assigning Banner */
+  :global(.gp-assign-banner) {
+    margin: 0 20px 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slideDown 0.3s ease;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  :global(.gp-ab-content) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  :global(.gp-ab-pulse) {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: ab-pulse 1.5s infinite;
+  }
+  @keyframes ab-pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+  }
+  :global(.gp-ab-text) {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  :global(.gp-ab-target) {
+    font-weight: 400;
+    color: var(--text-secondary);
+    font-size: 11px;
+    margin-left: 4px;
+  }
+  :global(.gp-ab-btn) {
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  :global(.gp-ab-btn:hover) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Empty State */
+  :global(.gp-empty) {
+    padding: 30px 20px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  :global(.gp-empty-icon) {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+  }
+  :global(.gp-empty-icon svg) {
+    width: 24px;
+    height: 24px;
+  }
+  :global(.gp-empty h4) {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  :global(.gp-empty p) {
+    font-size: 12px;
+    line-height: 1.5;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  /* List & Cards */
+  :global(.gp-list) {
+    padding: 0 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  :global(.gp-card) {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    display: flex;
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  :global(.gp-card:hover) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  :global(.gp-card-active) {
+    box-shadow: 0 0 0 2px var(--gc), 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-color: transparent;
+  }
+  :global(.gp-card-active:hover) {
+    transform: none;
+    box-shadow: 0 0 0 2px var(--gc), 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  :global(.gp-card-indicator) {
+    width: 4px;
+    flex-shrink: 0;
+  }
+  :global(.gp-card-content) {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+  }
+  :global(.gp-card-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  :global(.gp-card-name) {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :global(.gp-card-actions) {
+    display: flex;
+    gap: 6px;
+  }
+  :global(.gp-btn-assign), :global(.gp-btn-delete) {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  :global(.gp-btn-assign:hover) {
+    background: var(--gc-bg);
+    color: var(--gc);
+    border-color: var(--gc-border);
+  }
+  :global(.gp-btn-assign.active) {
+    background: var(--gc);
+    color: white;
+    border-color: var(--gc);
+  }
+  :global(.gp-btn-delete:hover) {
+    background: rgba(244, 63, 94, 0.15);
+    color: var(--accent-rose);
+    border-color: rgba(244, 63, 94, 0.3);
+  }
+  
+  /* Formatted Stats */
+  :global(.gp-card-stats) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-primary);
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  :global(.gp-stat) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  :global(.gp-stat svg) {
+    color: var(--text-muted);
+  }
+
+  /* Location Tags */
+  :global(.gp-card-locs) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  :global(.gp-loc-tag) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 8px 4px 6px;
+    border-radius: 12px;
+    background: var(--gc-bg);
+    border: 1px solid var(--gc-border);
+    color: var(--text-primary);
+    transition: all 0.15s;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  :global(.gp-loc-dot) {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  :global(.gp-loc-x) {
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1;
+    margin-left: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    transition: all 0.15s;
+  }
+  :global(.gp-loc-x:hover) {
+    background: rgba(244, 63, 94, 0.2);
+    color: var(--accent-rose);
   }
 
   /* ===== RESPONSIVE ===== */
